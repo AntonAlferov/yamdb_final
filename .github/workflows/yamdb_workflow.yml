@@ -2,7 +2,7 @@ name: Django-api_yambdb workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   tests:
