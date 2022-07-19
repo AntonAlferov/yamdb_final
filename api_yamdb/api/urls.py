@@ -1,16 +1,8 @@
-from rest_framework.routers import SimpleRouter
 from django.urls import include, path
+from rest_framework.routers import SimpleRouter
 
-from .views import (
-    CategoryViewSet,
-    GenreViewSet,
-    TitleViewSet,
-    CommentViewSet,
-    ReviewsViewSet,
-    APISignUp,
-    APIToken,
-    UsersViewSet,
-)
+from .views import (APISignUp, APIToken, CategoryViewSet, CommentViewSet,
+                    GenreViewSet, ReviewsViewSet, TitleViewSet, UsersViewSet)
 
 app_name = 'api'
 

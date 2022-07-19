@@ -1,26 +1,24 @@
-from django.db.models import Avg
-from django_filters.rest_framework import DjangoFilterBackend
-from django.core.mail import send_mail
-from django.conf import settings
-from django.shortcuts import get_object_or_404
-from rest_framework import filters, permissions, viewsets, status
-from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework.views import APIView
-
 from api.filtres import TitleFilter
 from api.mixins import ListPatchDestroyViewSet
-from api.permissions import AdminOrReadOnly, IsAdminOnly, WriteOnlyAuthorOr
 from api.pagination import CategoryGenrePagination
+from api.permissions import AdminOrReadOnly, IsAdminOnly, WriteOnlyAuthorOr
 from api.serializers import (AuthSerializer, CategorySerializer,
                              CommentSerializer, GenreSerializer,
                              ObtainTokenSerializer, PostTitleSerializer,
-                             ReviewSerializer, TitleSerializer,
-                             UserSerializer)
+                             ReviewSerializer, TitleSerializer, UserSerializer)
+from django.conf import settings
+from django.core.mail import send_mail
+from django.db.models import Avg
+from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, permissions, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.pagination import (LimitOffsetPagination,
+                                       PageNumberPagination)
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import AccessToken
 from reviews.models import Category, Comment, Genre, Review, Title, User
 
 
