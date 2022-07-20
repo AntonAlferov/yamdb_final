@@ -1,24 +1,26 @@
+from django.db.models import Avg
+from django_filters.rest_framework import DjangoFilterBackend
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+from rest_framework import filters, permissions, viewsets, status
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework.views import APIView
+
 from api.filtres import TitleFilter
 from api.mixins import ListPatchDestroyViewSet
-from api.pagination import CategoryGenrePagination
 from api.permissions import AdminOrReadOnly, IsAdminOnly, WriteOnlyAuthorOr
+from api.pagination import CategoryGenrePagination
 from api.serializers import (AuthSerializer, CategorySerializer,
                              CommentSerializer, GenreSerializer,
                              ObtainTokenSerializer, PostTitleSerializer,
-                             ReviewSerializer, TitleSerializer, UserSerializer)
-from django.conf import settings
-from django.core.mail import send_mail
-from django.db.models import Avg
-from django.shortcuts import get_object_or_404
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, permissions, status, viewsets
-from rest_framework.decorators import action
-from rest_framework.pagination import (LimitOffsetPagination,
-                                       PageNumberPagination)
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import AccessToken
+                             ReviewSerializer, TitleSerializer,
+                             UserSerializer)
 from reviews.models import Category, Comment, Genre, Review, Title, User
 
 
@@ -81,8 +83,9 @@ class ReviewsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         title_id = self.kwargs.get('title_id')
-        new_queryset = get_object_or_404(
-            Title, id=title_id).reviews.all()
+#        new_queryset = get_object_or_404(
+#            Title, id=title_id).reviews.all()
+        new_queryset = Title.objects.filter(id=title_id)
         return new_queryset
 
     def perform_create(self, serializer):
@@ -101,7 +104,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         review_id = self.kwargs.get('review_id')
-        get_object_or_404(Review, id=review_id)
+#        get_object_or_404(Review, id=review_id)
         new_queryset = Comment.objects.filter(review_id=review_id)
         return new_queryset
 
