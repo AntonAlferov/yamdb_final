@@ -1,4 +1,4 @@
-name: Django-api_yambdb workflow
+name: Django-api_yambdb workflow #
 
 on:
   push:
